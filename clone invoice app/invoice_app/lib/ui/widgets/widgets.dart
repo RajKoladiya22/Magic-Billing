@@ -140,7 +140,7 @@ class WidgetClass {
                                     emailController.text.trim());
                                 otpController.clear();
                                 LoginService.isLoading.value = false;
-                                LoginService.txtColor.value = Colors.grey;
+
                                 Get.bottomSheet(
                                     Container(
                                       height: 300.h,
@@ -190,23 +190,22 @@ class WidgetClass {
                                                     ))
                                                 : Container(),
                                             GestureDetector(onTap: () async {
-                                              await ApiService.verifyOtp(
-                                                  email, otpController.text);
-                                              if (LoginService.msg.value ==
-                                                  "OTP verified successfully.") {
+                                              var res =
+                                                  await ApiService.verifyOtp(
+                                                      email,
+                                                      otpController.text);
+                                              if (res == "success") {
                                                 Get.offNamed(AppRoutes.home);
                                               } else {
                                                 LoginService.msg.value =
                                                     "OTP varification failed";
                                               }
-                                            }, child: Obx(() {
-                                              return button(
+                                            }, child: button(
                                                   "verify OTP",
                                                   LoginService.txtColor.value,
                                                   Colors.white,
                                                   45,
-                                                  Colors.white);
-                                            })),
+                                                  Colors.white)),
                                           ],
                                         ),
                                       ),

@@ -104,7 +104,7 @@ class ApiService {
 
       if (res.statusCode == 200) {
         log(res.body);
-        LoginService.msg.value = "OTP verified successfully.";
+        return "success";
       } else {
         LoginService.msg.value = "OTP varification failed";
       }

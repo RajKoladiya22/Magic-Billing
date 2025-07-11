@@ -7,16 +7,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   UserInfoModel model = Get.arguments;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           children: [
-            Text("${model.dataModel?.userModel?.firstName}"),
-            Text("${model.dataModel?.userModel?.lastName}"),
-            Text("${model.dataModel?.userModel?.email}"),
-            Text("${model.dataModel?.userModel?.isVerified}"),
+            // Text("${model.dataModel?.userModel?.firstName}"),
+            // Text("${model.dataModel?.userModel?.lastName}"),
+            // Text("${model.dataModel?.userModel?.email}"),
+            // Text("${model.dataModel?.userModel?.isVerified}"),
           ],
         ),
       ),
