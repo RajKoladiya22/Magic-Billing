@@ -79,8 +79,11 @@ class WidgetClass {
                       onTap: () {
                         (emailController.text == "")
                             ? LoginService.msg.value = "invalid email"
-                            : Get.snackbar("check your email", "",
-                                backgroundColor: Colors.white54);
+                            : Get.snackbar(
+                                "Please check your email for further instructions.",
+                                "",
+                                colorText: Colors.white,
+                                backgroundColor: Color(0xff276ee0));
                         ApiService.forgotPasswordApi(
                             emailController.text.trim());
                       },
@@ -166,6 +169,15 @@ class WidgetClass {
                                               maxLength: 6,
                                               keyboardType:
                                                   TextInputType.number,
+                                              onChanged: (value) {
+                                                if (value.length == 6) {
+                                                  LoginService.txtColor.value =
+                                                      Color(0xff276ee0);
+                                                } else {
+                                                  LoginService.txtColor.value =
+                                                      Colors.grey;
+                                                }
+                                              },
                                               decoration: InputDecoration(
                                                   border: OutlineInputBorder()),
                                             ),
@@ -183,6 +195,9 @@ class WidgetClass {
                                               if (LoginService.msg.value ==
                                                   "OTP verified successfully.") {
                                                 Get.offNamed(AppRoutes.home);
+                                              } else {
+                                                LoginService.msg.value =
+                                                    "OTP varification failed";
                                               }
                                             }, child: Obx(() {
                                               return button(
@@ -192,14 +207,6 @@ class WidgetClass {
                                                   45,
                                                   Colors.white);
                                             })),
-                                            (LoginService.msg.value ==
-                                                    "OTP varification failed")
-                                                ? Text(
-                                                    "OTP varification failed",
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                    ))
-                                                : Container()
                                           ],
                                         ),
                                       ),
@@ -252,7 +259,7 @@ class WidgetClass {
     return Get.bottomSheet(
         Container(
           padding: EdgeInsets.all(20),
-          height: 550.h,
+          height: 590.h,
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20.r)),
           child: SingleChildScrollView(
@@ -283,11 +290,13 @@ class WidgetClass {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(), labelText: "First name"),
                   ),
+                  Padding(padding: EdgeInsets.only(bottom: 2.h)),
                   TextFormField(
                     controller: lastNameController,
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(), labelText: "Last name"),
                   ),
+                  Padding(padding: EdgeInsets.only(bottom: 2.h)),
                   TextFormField(
                     controller: emailController,
                     decoration: const InputDecoration(
@@ -307,11 +316,12 @@ class WidgetClass {
                     decoration: const InputDecoration(
                         border: OutlineInputBorder(), labelText: "password"),
                   ),
-                  (LoginService.msg.value == "invalid password")
+                  (LoginService.msg.value ==
+                          "Password must have at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special character, and be at least 8 characters long")
                       ? Padding(
                           padding: EdgeInsets.only(bottom: 2.h),
                           child: const Text(
-                            "invalid password",
+                            "Password must have at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special character, and be at least 8 characters long",
                             style: TextStyle(color: Colors.red),
                           ),
                         )
@@ -370,7 +380,8 @@ class WidgetClass {
                             } else if (!isEmail) {
                               LoginService.msg.value = "invalid email";
                             } else if (!isPassword) {
-                              LoginService.msg.value = "invalid password";
+                              LoginService.msg.value =
+                                  "Password must have at least 1 digit, 1 lowercase letter, 1 uppercase letter, 1 special character, and be at least 8 characters long";
                             } else {
                               LoginService.isLoading.value = true;
 
